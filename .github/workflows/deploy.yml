@@ -26,6 +26,8 @@ jobs:
       - name: Build
         run: npm run build
         working-directory: frontend
+        env:
+          CI: false
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
