@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
 
+const API_URL = "https://humna.pythonanywhere.com";
+
 function App() {
   const [students, setStudents] = useState([]);
   const [name, setName] = useState("");
@@ -17,7 +19,7 @@ function App() {
   }, []);
 
   const fetchStudents = () => {
-    fetch("http://localhost:5000/students")
+    fetch(`${API_URL}/students`)
       .then((r) => {
         if (!r.ok) throw new Error("Could not fetch students");
         return r.json();
@@ -40,7 +42,7 @@ function App() {
     
     setAddFeedback({ text: "", isError: false });
     
-    fetch("http://localhost:5000/students", {
+    fetch(`${API_URL}/students`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ name: trimmedName }),
@@ -69,7 +71,7 @@ function App() {
       return;
     }
     
-    fetch(`http://localhost:5000/students/${encodeURIComponent(studentName)}`, {
+    fetch(`${API_URL}/students/${encodeURIComponent(studentName)}`, {
       method: "DELETE",
     })
       .then((r) => {
@@ -86,7 +88,7 @@ function App() {
   };
 
   const markAttendance = (studentName, status) => {
-    fetch("http://localhost:5000/attendance", {
+    fetch(`${API_URL}/attendance`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ name: studentName, status }),
@@ -114,7 +116,7 @@ function App() {
     setLoading(true);
     setAiReply("");
     
-    fetch("http://localhost:5000/ask", {
+    fetch(`${API_URL}/ask`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ question: aiQuestion }),
