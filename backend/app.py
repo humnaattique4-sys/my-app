@@ -167,7 +167,7 @@ def ask_ai():
         # API Key is an OpenRouter key, route through OpenRouter with restricted max_tokens to prevent credit issues
         url = "https://openrouter.ai/api/v1/chat/completions"
         payload = json.dumps({
-            "model": "google/gemini-2.5-flash",
+            "model": "google/gemini-2.0-flash-001",
             "messages": [{"role": "user", "content": system_context}],
             "max_tokens": 1000
         }).encode("utf-8")
@@ -196,7 +196,7 @@ def ask_ai():
             return jsonify({"reply": f"Error: {str(e)}"})
     else:
         # API Key is a Google Gemini key, route directly to Google's Generative Language API
-        url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={api_key}"
+        url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={api_key}"
         payload = json.dumps({
             "contents": [{
                 "parts": [{"text": system_context}]
@@ -227,4 +227,3 @@ def ask_ai():
 
 if __name__ == "__main__":
     app.run(debug=True)
-
